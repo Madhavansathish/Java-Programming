@@ -1,0 +1,29 @@
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int num=sc.nextInt();
+		sc.nextLine();
+		
+		String[] names=new String[num];
+		for(int i=0;i<num;i++){
+		    names[i]=sc.nextLine();
+		}
+		
+		for(int i=0;i<num;i++){
+		    boolean repeat=false;
+		    for(int j=0;j<i;j++){
+		        if(names[i].equals(names[j])){
+		            repeat=true;
+		        }
+		    }
+		    if(repeat){
+		        System.out.println("YES");
+		    }
+		    else{
+		        System.out.println("NO");
+		    }
+		}
+	}
+}
