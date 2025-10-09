@@ -1,26 +1,36 @@
-bool isIsomorphic(char* s, char* t) {
-    int map_s_to_t[256]={0};
-    int map_t_to_s[256]={0};
-    int n=strlen(s);
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        if (s.length() != t.length()) return false;
 
-    if(strlen(s)!=strlen(t)) return false;
+        int[] mapST = new int[256]; // mapping from s -> t
+        int[] mapTS = new int[256]; // mapping from t -> s
 
-    for(int i=0;i<n;i++){
-        char ch1=s[i];
-        char ch2=t[i];
+        for (int i = 0; i < s.length(); i++) {
+            char chS = s.charAt(i);
+            char chT = t.charAt(i);
 
-        if(map_s_to_t[ch1]==0){
-            map_s_to_t[ch1]=ch2;
+            // If no mapping exists, set it
+            if (mapST[chS] == 0) {
+                mapST[chS] = chT;
+            } else if (mapST[chS] != chT) {
+                return false; // conflict in s->t mapping
+            }
+
+            if (mapTS[chT] == 0) {
+                mapTS[chT] = chS;
+            } else if (mapTS[chT] != chS) {
+                return false; // conflict in t->s mapping
+            }
         }
-        else if(map_s_to_t[ch1]!=ch2){
-            return false;
-        }
 
-        if(map_t_to_s[ch2] == 0) {
-            map_t_to_s[ch2] = ch1;
-        } else if(map_t_to_s[ch2] != ch1) {
-            return false;
-        }
+        return true;
     }
-    return true;
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+
+        System.out.println(sol.isIsomorphic("egg", "add"));   // true
+        System.out.println(sol.isIsomorphic("foo", "bar"));   // false
+        System.out.println(sol.isIsomorphic("paper", "title"));// true
+    }
 }
